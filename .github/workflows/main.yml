@@ -8,7 +8,7 @@ on:
 
 jobs: 
   build: 
-    runs-on: self-hosted 
+    runs-on: ubuntu-slim 
     steps: 
       - name: Checkout Code 
         uses: actions/checkout@v4 
@@ -17,13 +17,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Specify the major version or exact semantic version
-          cache: 'npm'       # Automatically cache npm dependencies for faster builds
-
-      - name: Cache Dependencies 
-        uses: actions/cache@v4 
-        with:
-          path: ~/.npm 
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} 
+          cache: 'npm'       # Automatically cache npm dependencies for faster builds 
 
       - name: Build 
         run: npm install 
