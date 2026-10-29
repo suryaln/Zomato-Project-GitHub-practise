@@ -5,7 +5,7 @@ on:
     branches: 
       - master 
   workflow_dispatch:  
-
+  
 jobs: 
   build: 
     runs-on: ubuntu-slim 
@@ -13,17 +13,11 @@ jobs:
       - name: Checkout Code 
         uses: actions/checkout@v4 
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20' # Specify the major version or exact semantic version
-          cache: 'npm'       # Automatically cache npm dependencies for faster builds 
+      - name: Cache Dependencies 
+        uses: actions/cache@v4 
+        with: 
+          path: ~/.npm 
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }} 
 
       - name: Build 
         run: npm install 
-
-      - name: Test 
-        run: echo "code is tested" 
-
-      - name: Deploy 
-        run: echo "code is deploy" 
